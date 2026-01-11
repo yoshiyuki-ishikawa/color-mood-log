@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Color Mood Log</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&family=Inter:wght@300;400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Header Area -->
+        <header>
+            <button id="prev-month" aria-label="Previous Month">&lt;</button>
+            <h1 id="current-month-display"></h1>
+            <button id="next-month" aria-label="Next Month">&gt;</button>
+        </header>
+
+        <!-- Calendar Area -->
+        <main id="calendar-area">
+            <div class="calendar-header">
+                <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+            </div>
+            <div id="calendar-grid">
+                <!-- Dynamically populated -->
+            </div>
+        </main>
+
+        <!-- Input Area (Palette) -->
+        <footer id="input-area">
+            <div class="palette">
+                <button class="color-btn" data-color="grey" aria-label="Cloud (Grey)"></button>
+                <button class="color-btn" data-color="blue" aria-label="Rain (Blue)"></button>
+                <button class="color-btn" data-color="green" aria-label="Forest (Green)"></button>
+                <button class="color-btn" data-color="yellow" aria-label="Sun (Yellow)"></button>
+                <button class="color-btn" data-color="red" aria-label="Bloom (Red)"></button>
+            </div>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

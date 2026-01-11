@@ -1,0 +1,243 @@
+:root {
+    /* Color Palette V2 (Designer Refined) */
+    --color-grey: #D8D8D8;
+    --color-blue: #AABCCE;
+    --color-green: #B2C6A6;
+    --color-yellow: #E8D595;
+    --color-red: #DFA8A8;
+
+    --bg-color: #F9F9F7;
+    --text-color: #4A4A4A;
+    --text-sub: #C0C0C0;
+
+    --font-main: 'Inter', 'Noto Sans JP', sans-serif;
+
+    /* Animation Tokens */
+    --ease-organic: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Slower, smoother ease-out */
+    --scale-press: 0.95;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body,
+html {
+    height: 100%;
+    width: 100%;
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+    /* Prevent global scroll */
+    -webkit-font-smoothing: antialiased;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2rem;
+    flex: 0 0 auto;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--text-color);
+}
+
+header button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    opacity: 0.3;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+header button:hover,
+header button:active {
+    opacity: 1;
+}
+
+/* Calendar Area */
+#calendar-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.calendar-header span {
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    font-weight: 400;
+}
+
+#calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* No visible gap, relying on spacing */
+    gap: 4px;
+}
+
+.date-cell {
+    aspect-ratio: 1;
+    /* Square */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-sub);
+    /* Default inactive color */
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: default;
+    transition: background-color var(--ease-organic), color 0.3s;
+    user-select: none;
+}
+
+/* Today's style (Minimal) */
+.date-cell.is-today {
+    color: var(--text-color);
+    font-weight: 400;
+    position: relative;
+}
+
+/* Small dot for today */
+.date-cell.is-today::after {
+    content: '';
+    position: absolute;
+    bottom: 15%;
+    width: 3px;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+/* Colored States */
+.date-cell[data-color] {
+    transition: background-color var(--ease-organic);
+    color: transparent;
+    /* Text disappears when colored, or white? Design said: "数字の背景が染まる". Let's keep text visible but subtle or white if dark. For these pastels, maybe dark text is fine. Let's try white for contrast on color. */
+    color: #FFF;
+    font-weight: 400;
+}
+
+/* Remove dot when colored? Or keep it? Let's hide date number generally or keep it subtle. Specification says: "数字の背景が染まる" -> implies number is still there. */
+.date-cell[data-color] {
+    /* Specific text coloring for readability on pastels could be tweaked, but #FFF usually works on these mid-tones */
+    color: #FFFFFF;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.date-cell[data-color].is-today::after {
+    background-color: #FFF;
+    /* Dot becomes white */
+}
+
+/* Color Classes */
+.date-cell[data-color="grey"] {
+    background-color: var(--color-grey);
+}
+
+.date-cell[data-color="blue"] {
+    background-color: var(--color-blue);
+}
+
+.date-cell[data-color="green"] {
+    background-color: var(--color-green);
+}
+
+.date-cell[data-color="yellow"] {
+    background-color: var(--color-yellow);
+}
+
+.date-cell[data-color="red"] {
+    background-color: var(--color-red);
+}
+
+/* Input Area */
+#input-area {
+    flex: 0 0 auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.palette {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.color-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    /* Fast tactile feedback */
+    position: relative;
+    /* Remove default shadow/outline */
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.color-btn:active {
+    transform: scale(var(--scale-press));
+}
+
+/* Palette Colors */
+.color-btn[data-color="grey"] {
+    background-color: var(--color-grey);
+}
+
+.color-btn[data-color="blue"] {
+    background-color: var(--color-blue);
+}
+
+.color-btn[data-color="green"] {
+    background-color: var(--color-green);
+}
+
+.color-btn[data-color="yellow"] {
+    background-color: var(--color-yellow);
+}
+
+.color-btn[data-color="red"] {
+    background-color: var(--color-red);
+}
+
+/* Selected State (Optional, but good for feedback) */
+.color-btn.selected {
+    box-shadow: 0 0 0 3px var(--bg-color), 0 0 0 4px var(--text-sub);
+}
